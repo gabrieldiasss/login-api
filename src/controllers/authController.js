@@ -17,6 +17,21 @@ function generateToken(params = {}) {
     })
 }
 
+router.get("/listuser", async(req, res) => {
+
+    try {
+
+        const listUser = await User.find()
+
+        res.json(listUser)
+
+    } catch(err) {
+        res.status(400).json({ error: "Error list users"})
+    }
+
+})
+
+
 router.post("/register", async(req, res) => {
     
     try {
@@ -73,6 +88,7 @@ router.post("/authenticate", async(req, res) => {
         token: generateToken({ id: user.id })
     })
 
-})
+}) 
+
 
 module.exports = router

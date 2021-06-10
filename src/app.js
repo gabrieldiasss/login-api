@@ -31,4 +31,4 @@
     app.use("/auth", authController)
     app.use("/project", projectController)
 
-app.listen(4343, () => console.log("Server running"))
+app.listen(process.env.PORT || 4343, () => console.log("Server running"))

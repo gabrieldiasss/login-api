@@ -8,6 +8,10 @@ const jwt = require("jsonwebtoken")
 
 const authConfig = require("../config/auth.json")
 
+const validation = require('../middlewares/validationMiddleware')
+const loginSchema = require("../Validations/loginValidation")
+const registerValidation = require("../Validations/registerValidation")
+
 require("../models/User")
 const User = mongoose.model("users")
 
@@ -20,7 +24,6 @@ function generateToken(params = {}) {
 router.get("/listuser", async(req, res) => {
 
     try {
-
         const listUser = await User.find()
 
         res.json(listUser)
@@ -31,8 +34,7 @@ router.get("/listuser", async(req, res) => {
 
 })
 
-
-router.post("/register", async(req, res) => {
+router.post("/register", validation(registerValidation), async(req, res) => {
     
     try {
         const { name, email } = req.body
@@ -61,13 +63,13 @@ router.post("/register", async(req, res) => {
             token: generateToken({ id: user.id })
          })
 
-    } catch (err) {
+    } catch {
         res.status(400).json({ error: "Error create account" })
     }
 
 })
 
-router.post("/authenticate", async(req, res) => {
+router.post("/authenticate", validation(loginSchema), async(req, res) => {
 
     const { email, password } = req.body
 

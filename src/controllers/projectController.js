@@ -6,7 +6,7 @@ const authMiddleware = require("../middlewares/auth")
 router.use(authMiddleware)
 
 router.get("/", (req, res) => {
-    res.json("Page Project hehe" )
+    res.json("Você está autenticado!!!!" )
 })
 
 module.exports = router

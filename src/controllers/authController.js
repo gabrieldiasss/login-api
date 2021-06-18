@@ -42,17 +42,17 @@ router.post("/register", validation(registerValidation), async(req, res) => {
         const userExists = await User.findOne({ name, email })
 
         if(userExists)
-        return res.status(400).json({ error: "This account already exists" })
+        return res.status(400).json({ error: "Essa conta já existe!" })
 
         const nameExists = await User.findOne({ name })
 
         if(nameExists)
-        return res.status(400).json({ error: "This name is already in use" })
+        return res.status(400).json({ error: "Esse nome já está em uso!" })
 
         const emailExists = await User.findOne({ email })
 
         if(emailExists)
-        return res.status(400).json({ error: "This email is already in use" })
+        return res.status(400).json({ error: "Esse email já está em uso!" })
 
         const user = await User.create(req.body)
 
@@ -76,12 +76,12 @@ router.post("/authenticate", validation(loginSchema), async(req, res) => {
     const user = await User.findOne({ email }).select("+password")
 
     if(!user)
-    return res.status(400).json({ error: "Invalid email" })
+    return res.status(400).json({ error: "Email inválido!" })
 
     const comparePassword = await bcrypt.compare(password, user.password)
 
     if(!comparePassword)
-    return res.status(400).json({ error: "Invalid password" })
+    return res.status(400).json({ error: "Senha inválida!" })
 
     user.password = undefined
 
@@ -91,6 +91,5 @@ router.post("/authenticate", validation(loginSchema), async(req, res) => {
     })
 
 }) 
-
 
 module.exports = router

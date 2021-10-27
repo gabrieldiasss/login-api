@@ -47,12 +47,12 @@ router.post("/register", validation(registerValidation), async(req, res) => {
         const nameExists = await User.findOne({ name })
 
         if(nameExists)
-            return res.status(400).json({ error: "Esse nome já está em uso!" })
+            return res.status(400).json({ error: "Esse nome já está em uso." })
 
         const emailExists = await User.findOne({ email })
 
         if(emailExists)
-            return res.status(400).json({ error: "Esse email já está em uso!" })
+            return res.status(400).json({ error: "Esse email já está em uso." })
 
         const user = await User.create(req.body)
 
@@ -76,12 +76,12 @@ router.post("/authenticate", validation(loginSchema), async(req, res) => {
     const user = await User.findOne({ email }).select("+password")
 
     if(!user)
-    return res.status(400).json({ error: "Email ou senha inválida!" })
+    return res.status(400).json({ error: "Email ou senha inválida." })
 
     const comparePassword = await bcrypt.compare(password, user.password)
 
     if(!comparePassword)
-    return res.status(400).json({ error: "Senha ou senha inválida!" })
+    return res.status(400).json({ error: "Email ou senha inválidas." })
 
     user.password = undefined
 

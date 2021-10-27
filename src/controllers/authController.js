@@ -42,7 +42,7 @@ router.post("/register", validation(registerValidation), async(req, res) => {
         const userExists = await User.findOne({ name, email })
 
         if(userExists)
-            return res.status(400).json({ error: "Essa conta já existe!" })
+            return res.status(400).json({ error: "Essa conta já existe." })
 
         const nameExists = await User.findOne({ name })
 
@@ -76,7 +76,7 @@ router.post("/authenticate", validation(loginSchema), async(req, res) => {
     const user = await User.findOne({ email }).select("+password")
 
     if(!user)
-    return res.status(400).json({ error: "Email ou senha inválida." })
+    return res.status(400).json({ error: "Email ou senha inválidas." })
 
     const comparePassword = await bcrypt.compare(password, user.password)
 

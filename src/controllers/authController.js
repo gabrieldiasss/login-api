@@ -37,7 +37,17 @@ router.get("/listuser", async(req, res) => {
 router.post("/register", validation(registerValidation), async(req, res) => {
     
     try {
-        const { email } = req.body
+        const { name, email } = req.body
+
+        const userExists = await User.findOne({ name, email })
+
+        if(userExists)
+            return res.status(400).json({ error: "Essa conta já existe." })
+
+        const nameExists = await User.findOne({ name })
+
+        if(nameExists)
+            return res.status(400).json({ error: "Esse nome já está em uso." })
 
         const emailExists = await User.findOne({ email })
 

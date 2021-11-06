@@ -24,9 +24,9 @@ function generateToken(params = {}) {
 router.post("/register", validation(registerValidation), async(req, res) => {
     
     try {
-        const { name, email } = req.body
+        const { email } = req.body
 
-        const userExists = await User.findOne({ name, email })
+        const userExists = await User.findOne({ email })
 
         if(userExists)
             return res.status(400).json({ error: "Essa conta já existe." })

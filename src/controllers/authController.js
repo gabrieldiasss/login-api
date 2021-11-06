@@ -22,10 +22,11 @@ function generateToken(params = {}) {
 }
 
 router.post("/register", validation(registerValidation), async(req, res) => {
+
+    const { email } = req.body
     
     try {
-        const { email } = req.body
-
+        
         const emailExists = await User.findOne({ email })
 
         if(emailExists)

@@ -18,14 +18,11 @@
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
 
-    mongoose.connect("mongodb://localhost/loginapitwo", {
+    mongoose.connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).then(() => {
         console.log("MongoDB connect with success!")
-    })
-    .catch((err) => {
-        console.log(err)
     })
 
     app.use(cors())

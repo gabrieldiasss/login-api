@@ -26,11 +26,6 @@ router.post("/register", validation(registerValidation), async(req, res) => {
     try {
         const { email } = req.body
 
-        const userExists = await User.findOne({ email })
-
-        if(userExists)
-            return res.status(400).json({ error: "Essa conta já existe." })
-
         const emailExists = await User.findOne({ email })
 
         if(emailExists)
